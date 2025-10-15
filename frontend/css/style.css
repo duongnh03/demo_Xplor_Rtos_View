@@ -1,0 +1,323 @@
+/* --- DARK THEME COLOR VARIABLES --- */
+:root {
+    /* Custom colors */
+    --primary-color: #007ACC; /* VS Code blue */
+    --border-radius: 6px;
+    --box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3); /* Shadow for dark background */
+
+    /* Define DEFAULT dark colors for VS Code variables */
+    /* If opened in VS Code, these variables will be automatically overridden */
+    --vscode-editor-background: #1E1E1E;
+    --vscode-sideBar-background: #252526;
+    --vscode-foreground: #D4D4D4;
+    --vscode-descriptionForeground: #8B8B8B;
+    --vscode-sideBar-border: #333333;
+    --vscode-editorWidget-border: #303030;
+    --vscode-input-placeholderForeground: #A6A6A6;
+    --vscode-panel-background: #2D2D2D;
+    --vscode-button-secondaryBackground: #3A3D41;
+    --vscode-button-secondaryHoverBackground: #45494E;
+    --vscode-list-hoverBackground: rgba(255, 255, 255, 0.08);
+    --vscode-list-activeSelectionBackground: rgba(0, 122, 204, 0.2);
+    --vscode-list-inactiveSelectionBackground: rgba(255, 255, 255, 0.05);
+    --vscode-scrollbarSlider-background: rgba(121, 121, 121, 0.4);
+    --vscode-scrollbarSlider-hoverBackground: rgba(100, 100, 100, 0.7);
+}
+
+/* --- General Layout --- */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--vscode-foreground);
+    background-color: var(--vscode-editor-background);
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* --- Navigation Menu --- */
+.nav-menu {
+    width: 180px;
+    background-color: var(--vscode-sideBar-background);
+    padding: 15px 0;
+    border-right: 1px solid var(--vscode-sideBar-border);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: calc(100% - 20px);
+    margin: 0 10px;
+    background-color: var(--vscode-button-secondaryBackground);
+    border: 1px solid transparent;
+    color: var(--vscode-foreground);
+    padding: 12px 15px;
+    text-align: left;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.95em;
+    transition: all 0.2s ease-in-out;
+    border-left: 4px solid transparent;
+}
+
+.nav-button:hover {
+    background-color: var(--vscode-list-hoverBackground);
+    border-color: var(--vscode-button-secondaryHoverBackground);
+}
+
+.nav-button.active {
+    font-weight: bold;
+    color: var(--primary-color);
+    background-color: var(--vscode-list-activeSelectionBackground);
+    border-color: var(--primary-color);
+    border-left: 4px solid var(--primary-color);
+}
+
+/* --- Content Area --- */
+.content-pane {
+    flex-grow: 1;
+    padding: 25px 30px;
+    overflow-y: auto;
+}
+
+.content-page.hidden {
+    display: none;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--vscode-editorWidget-border);
+    margin-bottom: 25px;
+}
+
+.header h2 {
+    margin: 0;
+    color: var(--vscode-foreground);
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.header span {
+    color: var(--vscode-descriptionForeground);
+    font-size: 0.9em;
+}
+
+/* --- Table Styling --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--vscode-editorWidget-border);
+}
+
+thead th {
+    font-weight: bold;
+    color: var(--vscode-input-placeholderForeground);
+    background-color: var(--vscode-panel-background);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 2px solid var(--primary-color);
+    text-transform: uppercase;
+    font-size: 0.85em;
+    letter-spacing: 0.5px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: var(--vscode-list-inactiveSelectionBackground);
+}
+
+tbody tr:hover {
+    background-color: var(--vscode-list-hoverBackground);
+    cursor: pointer;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* --- Scrollbar Styling --- */
+.content-pane::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.content-pane::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.content-pane::-webkit-scrollbar-thumb {
+    background-color: var(--vscode-scrollbarSlider-background);
+    border-radius: 10px;
+}
+
+.content-pane::-webkit-scrollbar-thumb:hover {
+    background-color: var(--vscode-scrollbarSlider-hoverBackground);
+}
+.file-uploader {
+    padding: 20px;
+    margin-bottom: 25px;
+    background-color: var(--vscode-panel-background);
+    border: 1px dashed var(--vscode-editorWidget-border);
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.file-uploader h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.file-uploader input[type="file"] {
+    display: block;
+    margin: 0 auto 10px auto;
+}
+.hidden {
+    display: none;
+}
+
+/* Style for the full-screen upload page */
+.view-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.file-uploader-fullpage {
+    max-width: 500px;
+    padding: 40px;
+    background-color: var(--vscode-sideBar-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.file-uploader-fullpage h1 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+.file-uploader-fullpage p {
+    color: var(--vscode-descriptionForeground);
+    margin-bottom: 25px;
+}
+
+/* Style for the special "Upload New File" button */
+.nav-button.special {
+    margin-top: 20px;
+    border-top: 1px solid var(--vscode-sideBar-border);
+    padding-top: 15px;
+    color: #f7a269; /* Orange color to stand out */
+}
+.nav-button.special:hover {
+    color: #ffffff;
+    background-color: #f7a26933;
+}
+#upload-modal-overlay {
+    position: fixed; /* Cover the entire screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Màu đen mờ */
+    z-index: 1000; /* Nằm trên tất cả các phần tử khác */
+    display: flex;
+    justify-content: center; /* Semi-transparent black */
+    align-items: center; /* Sits on top of all other elements */
+    transition: opacity 0.3s ease;
+}
+
+/* Modal content */
+#upload-modal-content {
+    background-color: var(--vscode-sideBar-background);
+    padding: 30px 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    max-width: 450px;
+    border-top: 4px solid var(--primary-color);
+}
+
+#upload-modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+#upload-modal-content p {
+    color: var(--vscode-descriptionForeground);
+    margin-bottom: 25px;
+}
+
+/* Class to hide the modal */
+#upload-modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none; /* Don't allow clicks when hidden */
+}
+.nav-button.special-action {
+    background-color: transparent;
+    border: 1px dashed var(--vscode-editorWidget-border);
+    color: var(--vscode-descriptionForeground);
+    margin-bottom: 15px; /* Create space with the buttons below */
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.nav-button.special-action:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color); /* A little space between SVG and text */
+    background-color: var(--vscode-list-hoverBackground);
+}
+
+.nav-button.special-action svg {
+    margin-right: 10px;
+}
+.usage-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Khoảng cách giữa thanh và chữ */
+    min-width: 150px; /* Đảm bảo ô đủ rộng để không bị vỡ layout */
+}
+
+/* Gray background bar */
+.progress-container {
+    width: 100%;
+    height: 12px;
+    background-color: var(--vscode-editorWidget-border);
+    border-radius: 6px;
+    overflow: hidden; /* Ensure the blue bar doesn't overflow */
+}
+
+/* Blue bar representing the percentage */
+.progress-fill {
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 6px;
+    transition: width 0.5s ease-in-out; /* Smooth width change effect */
+}
+
+/* Text displaying the percentage */
+.usage-cell span {
+    font-weight: bold;
+    min-width: 50px; /* Giữ chiều rộng cố định cho chữ */
+}

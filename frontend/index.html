@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>XploR RTOS Viewer</title>
+</head>
+<body>
+    <div id="upload-modal-overlay" class="hidden">
+        <div id="upload-modal-content">
+            <h2>RTOS data upload</h2>
+            <p>Please select a data file (.json) to view.</p>
+            <input type="file" id="file-input" accept=".json">
+            <p id="file-status"></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <nav class="nav-menu">
+            <button id="add-new-file-button" class="nav-button special-action" title="upload new data file">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+                <span>Tải File Mới</span>
+            </button>
+            <button class="nav-button" data-target="heap-content">Heap</button>
+            <button class="nav-button active" data-target="task-content">Tasks</button>
+            <button class="nav-button" data-target="queue-content">Queue</button>
+            <button class="nav-button" data-target="semaphore-content">Semaphore</button>
+            <button class="nav-button" data-target="timer-content">Timer</button>
+        </nav>
+
+        <main class="content-pane">
+            <div id="heap-content" class="content-page hidden">
+                <div class="header"><h2>Heap Status</h2><span id="capture-timestamp-heap"></span></div>
+                <table>
+                    <thead>
+                        <tr><th>Heap Start</th><th>Heap End</th><th>Used</th><th>Free</th><th>Usage</th></tr>
+                    </thead>
+                    <tbody id="heap-table-body"></tbody>
+                </table>
+            </div>
+
+            <div id="task-content" class="content-page">
+                <div class="header"><h2>Task List</h2><span id="capture-timestamp-task"></span></div>
+                <table>
+                    <thead>
+                        <tr><th>ID</th><th>Address</th><th>Task Name</th><th>Status</th><th>Priority</th><th>Stack Start</th><th>Stack Top</th><th>Stack End</th><th>Stack Size</th><th>Stack Used</th><th>Stack Free</th><th>Stack Peak</th><th>Runtime</th></tr>
+                    </thead>
+                    <tbody id="task-table-body"></tbody>
+                </table>
+            </div>
+
+            <div id="queue-content" class="content-page hidden">
+                <div class="header"><h2>Queue List</h2><span id="capture-timestamp-queue"></span></div>
+                <table>
+                    <thead>
+                        <tr><th>Name</th><th>Current Length</th><th>Max Length</th><th>Item Size</th><th>Rx Lock</th><th>Tx Lock</th></tr>
+                    </thead>
+                    <tbody id="queue-table-body"></tbody>
+                </table>
+            </div>
+
+            <div id="semaphore-content" class="content-page hidden">
+                <div class="header"><h2>Semaphore List</h2><span id="capture-timestamp-semaphore"></span></div>
+                <table>
+                    <thead>
+                        <tr><th>Name</th><th>Type</th><th>Current Length</th><th>Max Length</th><th>Mutex Holder</th><th>RCall Count</th><th>Tasks Waiting Send</th><th>Tasks Waiting Receive</th></tr>
+                    </thead>
+                    <tbody id="semaphore-table-body"></tbody>
+                </table>
+            </div>
+
+            <div id="timer-content" class="content-page hidden">
+                <div class="header"><h2>Timer List</h2><span id="capture-timestamp-timer"></span></div>
+                <table>
+                    <thead>
+                        <tr><th>Name</th><th>Address</th><th>Timer ID</th><th>Type</th><th>Period (ticks)</th><th>Auto Reload</th><th>State</th><th>Expiry Time</th></tr>
+                    </thead>
+                    <tbody id="timer-table-body"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
