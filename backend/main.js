@@ -1,25 +1,27 @@
 const http = require('http');
 const path = require('path');
 const express = require('express');
-const WebSocket = require('ws');
+const WebSocket = require('ws'); 
 
 const PORT = 8080;
 const HOST = '127.0.0.1';
 
-const app = express();
-const server = http.createServer(app);
-const frontendPath = path.join(__dirname, '..', 'frontend');
-app.use(express.static(frontendPath));
+const app = express(); //create express app
+const server = http.createServer(app); //create http server
 
+const frontendPath = path.join(__dirname, '..', 'frontend'); // Adjust the path as necessary
+app.use(express.static(frontendPath)); // Serve static files from the frontend directory
+
+// Serve the main HTML file
 server.listen(PORT, HOST, () => {
-    console.log(`🚀 Server is running. Open your browser at http://${HOST}:${PORT}`);
+    console.log(`🚀 Server is running. Open your browser at http://${HOST}:${PORT}`); 
 });
 
-// --- Dữ liệu ảo ---
+//create a function to generate mock RTOS data
 function generateMockRtosData() {
     const statuses = ['Running', 'Ready', 'Blocked', 'Suspended'];
     
-    // Dữ liệu cho Tasks
+    // data for Tasks
     const tasks = [
         { 
             id: 1, address: '0x200018A0', 
@@ -45,7 +47,8 @@ function generateMockRtosData() {
             status: 'Blocked', 
             priority: 3, 
             stackPeak: Math.floor(Math.random() * 100) + 250, 
-            runtime: Math.floor(Math.random() * 15000) },
+            runtime: Math.floor(Math.random() * 15000) 
+        },
         { 
             id: 4, 
             address: '0x20001BD0', 
@@ -57,7 +60,7 @@ function generateMockRtosData() {
         },
     ];
 
-    // Dữ liệu cho Heap
+    // data for Heap
     const heap = {
         start: '0x20001000', 
         end: '0x20003800', 
@@ -65,7 +68,7 @@ function generateMockRtosData() {
         free: 10240 - (this.used || 2048),
     };
 
-    // Dữ liệu cho Queues
+    // data for Queues
     const queues = [
         { 
             name: 'sensorDataQueue', 
@@ -80,7 +83,7 @@ function generateMockRtosData() {
             itemSize: 32 },
     ];
     
-    // Dữ liệu cho Semaphores
+    // Data for Semaphores
     const semaphores = [
         { 
             name: 'uartMutex', 
@@ -95,7 +98,7 @@ function generateMockRtosData() {
         },
     ];
     
-    // Dữ liệu cho Timers
+    // Data for Timers
     const timers = [
         { 
             name: 'ledTimer', 
@@ -121,14 +124,14 @@ wss.on('connection', (ws) => {
     const intervalId = setInterval(() => {
         const mockData = generateMockRtosData();
         
-        // Gửi đi các gói tin riêng biệt cho từng view
+        // we can push data to all views to filter the interface
         ws.send(JSON.stringify({ view: 'tasks', data: mockData.tasks }));
         ws.send(JSON.stringify({ view: 'heap', data: mockData.heap }));
         ws.send(JSON.stringify({ view: 'queues', data: mockData.queues }));
         ws.send(JSON.stringify({ view: 'semaphores', data: mockData.semaphores }));
         ws.send(JSON.stringify({ view: 'timers', data: mockData.timers }));
         
-        console.log('Sent mock data for all views.');
+        console.log('pushed virtual RTOS data to frontend.');
 
     }, 1000);
 
